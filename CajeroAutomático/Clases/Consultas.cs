@@ -113,6 +113,40 @@ namespace CajeroAutomático.Clases
             return false;
         }
 
+        public bool depositarDinero(double deposito, string pin)
+        {
+            MySqlDataReader reader = null;
+            string consulta = "select dinero from cuentas where pin=" + pin + ";";
+
+
+            if (cn.GetConnection() != null)
+            {
+                MySqlCommand cmd = new MySqlCommand(consulta);
+                cmd.Connection = cn.GetConnection();
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    dinero = reader.GetDouble("dinero");
+                    reader.Close();
+
+                    consulta = "update cuentas set dinero=" + (dinero + deposito) + " where pin=" + pin + ";";
+                    cmd = new MySqlCommand(consulta);
+                    cmd.Connection = cn.GetConnection();
+                    int r = cmd.ExecuteNonQuery();
+                    return true;
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("Error al conectar.");
+            }
+
+            return false;
+        }
+
         public double getDinero(string pin)
         {
             MySqlDataReader reader = null;

@@ -32,13 +32,9 @@ namespace CajeroAutomático
 
         private void btnOtro_Click(object sender, EventArgs e)
         {
-            Retiro2 retiro2 = new Retiro2(cuenta);
+            Retiro2 retiro2 = new Retiro2(cuenta, pin);
             retiro2.Show();
         }
-
-
-        //YA ESTO FUNCIONA, FALTA CONFIGURAR LA VENTANA DE OTRAS CANTIDADES
-        //FALTA DEPOSITO METODOS Y VENTANAS
 
         private void btn5_Click(object sender, EventArgs e)
         {

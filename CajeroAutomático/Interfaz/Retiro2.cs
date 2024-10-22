@@ -7,16 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CajeroAutomático.Clases;
 
 namespace CajeroAutomático
 {
     public partial class Retiro2 : Form
     {
         Cuenta cuenta;
-        public Retiro2(Cuenta cuenta)
+        string pin;
+        Consultas con;
+        public Retiro2(Cuenta cuenta, string pin)
         {
             InitializeComponent();
             this.cuenta = cuenta;
+            this.pin = pin;
+            con = new Consultas();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -35,18 +40,18 @@ namespace CajeroAutomático
                     MessageBox.Show("Debe ingresar un valor lógico.");
                     txtCantidad.Clear();
                     txtCantidad.Focus();
-                } else if (cantidad > cuenta.dinero)
+                } else if (cantidad > con.getDinero(pin))
                 {
                     MessageBox.Show("La cantidad ingresada excede los fondos disponibles.");
                 } else if (cantidad % 5 != 0)
                 {
                     MessageBox.Show("Este sistema solo entrega billetes multiplos de 5.");
                 }
-                 else if (cantidad <= cuenta.dinero && cantidad <= 5000)
+                 else if (cantidad <= con.getDinero(pin) && cantidad <= 5000)
                 {
                     txtCantidad.Clear();
-                    cuenta.dinero -= cantidad;
-                    MessageBox.Show("Nuevo saldo disponible: B/. " + cuenta.getDinero());
+                    con.retirarDinero(cantidad, pin);
+                    MessageBox.Show("Nuevo saldo disponible: B/. " + con.getDinero(pin));
                     Application.Exit();
                 }
                 else

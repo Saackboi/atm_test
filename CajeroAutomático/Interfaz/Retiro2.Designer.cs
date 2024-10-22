@@ -135,6 +135,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Retiro2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Retiro2";
